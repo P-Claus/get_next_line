@@ -6,33 +6,43 @@
 /*   By: pclaus <pclaus@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:16:30 by pclaus            #+#    #+#             */
-/*   Updated: 2023/11/24 21:55:44 by pclaus           ###   ########.fr       */
+/*   Updated: 2023/11/25 16:59:35 by pclaus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
 
-char	*get_line(int fd)
+char	*get_next_line(int fd)
 {
-	int		bytes_read;
-	char	*buffer;
-	static int	count = 1;
+	int			bytes_read;
+	int			count;
+	int			stash_index;
+	char		*buffer;
+	static char	stash[100];
 
-	printf("ft_calloc#[%d]---", count++);
 	buffer = ft_calloc(5 + 1, sizeof(char));
 	if (buffer == NULL)
 		return (NULL);
-	bytes_read = read(fd, buffer, 5);
-	if (bytes_read <= 0)
-		return (free (buffer), NULL);
-	return (buffer);
-}
+	stash_index = 0;
+	while (!ft_strchr(buffer, '\n'))
+	{
+		bytes_read = read(fd, buffer, 5);
+		count = 0;
+		while (buffer[count] != '\0')
+		{
+			stash[stash_index++] = buffer[count];
+			count++;
+	//	if (ft_strchr(stash, '\n'))
+	//		break;
+		}
+	}
+	
+	stash[count] = '\0';
 
-char	*get_next_line(int fd)
-{
-	char	*new_buffer;
+	printf("The amount of bytes that are read is: %d\n", bytes_read);
+	printf("The string in the buffer is: %s\n", buffer);
+	printf("The string in the stash is: %s\n", stash);
 
-	new_buffer = get_line(fd);
-	return (new_buffer);	
-}
+	return (stash);
+}	

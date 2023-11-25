@@ -6,7 +6,7 @@
 /*   By: pclaus <pclaus@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 21:45:09 by pclaus            #+#    #+#             */
-/*   Updated: 2023/11/24 17:47:37 by pclaus           ###   ########.fr       */
+/*   Updated: 2023/11/25 15:39:32 by pclaus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,14 @@
 
 int main(void)
 {
-  int    fd;
-  char  *next_line;
-  int  count;
+	int    fd;
+	char  *next_line;
 
-  count = 0;
-  fd = open("example.txt", O_RDONLY);
- 	while (1)
-	{
+	fd = open("example.txt", O_RDONLY);
 
-		next_line = get_next_line(fd);
-		if (next_line == NULL)
-			break;
-		count++;
-  		printf("[%d]:%s\n", count, next_line); //count is to show you the line numbers
-		free(next_line);
-		next_line = NULL;
-	}
+	next_line = get_next_line(fd);
+	printf("The line is: %s\n", next_line);
   
-  close(fd);
-  return (0);
+	close(fd);
+	return (0);
 }

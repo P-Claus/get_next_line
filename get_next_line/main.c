@@ -6,7 +6,7 @@
 /*   By: pclaus <pclaus@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 21:45:09 by pclaus            #+#    #+#             */
-/*   Updated: 2023/11/25 15:39:32 by pclaus           ###   ########.fr       */
+/*   Updated: 2023/11/26 18:27:26 by pclaus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,6 @@ int main(void)
 	printf("The line is: %s\n", next_line);
   
 	close(fd);
+	free(next_line);
 	return (0);
 }

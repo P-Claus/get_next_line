@@ -6,14 +6,12 @@
 /*   By: pclaus <pclaus@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:16:30 by pclaus            #+#    #+#             */
-/*   Updated: 2023/11/26 18:50:34 by pclaus           ###   ########.fr       */
+/*   Updated: 2023/11/26 18:34:43 by pclaus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
-
-char	*get_line(int fd);
 
 char	*get_next_line(int fd)
 {
@@ -56,9 +54,8 @@ char	*get_next_line(int fd)
 			i++;
 		}
 		line[i] = '\n';
-		ft_memmove(stash, stash + i + 1, ft_strlen(stash) - 1);	
 	}
-	
+		
 
 	printf("The amount of bytes that are read is: %d\n", bytes_read);
 	printf("The string in the buffer is: %s\n", buffer);

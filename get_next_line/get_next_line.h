@@ -6,7 +6,7 @@
 /*   By: pclaus <pclaus@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 20:50:06 by pclaus            #+#    #+#             */
-/*   Updated: 2023/11/26 18:47:22 by pclaus           ###   ########.fr       */
+/*   Updated: 2023/11/25 16:37:01 by pclaus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,5 @@ size_t	ft_strlen(const char *s);
 char    *ft_strchr(const char *str, int c);
 void    *ft_calloc(size_t num_elements, size_t element_size);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
-void	*ft_memmove(void *dst, const void *src, size_t len);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: pclaus <pclaus@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 21:41:47 by pclaus            #+#    #+#             */
-/*   Updated: 2023/11/26 18:45:52 by pclaus           ###   ########.fr       */
+/*   Updated: 2023/11/25 16:35:39 by pclaus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,31 +56,21 @@ void	*ft_calloc(size_t num_elements, size_t element_size)
 	return (ptr);
 }
 
-void	*ft_memmove(void *dst, const void *src, size_t len)
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	size_t	counter;
+	size_t	dst_index;
+	size_t	src_index;
 
-	if (!dst && !src)
-		return (0);
-	if (src < dst)
+	dst_index = 0;
+	src_index = 0;
+	while (dst[dst_index] && dst_index < size)
+		dst_index++;
+	while (src[src_index] && (dst_index + src_index + 1) < size)
 	{
-		counter = len;
-		while (counter > 0)
-		{
-			counter--;
-			*(unsigned char *)(dst + counter) = \
-				*(unsigned char *)(src + counter);
-		}
+		dst[dst_index + src_index] = src[src_index];
+		src_index++;
 	}
-	else
-	{
-		counter = 0;
-		while (counter < len)
-		{
-			*(unsigned char *)(dst + counter) = \
-				*(unsigned char *)(src + counter);
-			counter++;
-		}
-	}
-	return (dst);
+	if (dst_index < size)
+		dst[dst_index + src_index] = '\0';
+	return (dst_index + ft_strlen(src));
 }

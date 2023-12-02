@@ -6,7 +6,7 @@
 /*   By: pclaus <pclaus@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:16:30 by pclaus            #+#    #+#             */
-/*   Updated: 2023/11/26 18:34:43 by pclaus           ###   ########.fr       */
+/*   Updated: 2023/12/02 10:50:49 by pclaus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 char	*get_next_line(int fd)
 {
-	int			bytes_read;
 	int			count;
 	int			stash_index;
 	char		*buffer;
@@ -28,7 +27,7 @@ char	*get_next_line(int fd)
 	stash_index = 0;
 	while (!ft_strchr(buffer, '\n'))
 	{
-		bytes_read = read(fd, buffer, 5);
+		read(fd, buffer, 5);
 		count = 0;
 		while (buffer[count] != '\0')
 		{
@@ -57,7 +56,6 @@ char	*get_next_line(int fd)
 	}
 		
 
-	printf("The amount of bytes that are read is: %d\n", bytes_read);
 	printf("The string in the buffer is: %s\n", buffer);
 	printf("The string in the stash is: %s\n", stash);
 	free(buffer);

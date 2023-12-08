@@ -13,41 +13,52 @@
 #include "get_next_line.h"
 #include <stdio.h>
 
-char *store_buffer_in_stash(char *buffer)
-{
-  static char *stash;
-  if (stash == 0)
-  {
-    stash = malloc(sizeof(char) * ft_strlen(buffer));
-      if (stash == NULL)
-        return (NULL);
-      stash = ft_strjoin(stash ,buffer);
-  }
-  else
-  {
-    stash = malloc(sizeof(char) * ft_strlen(ft_strjoin(stash, buffer)));
-    if (stash == NULL)
-        return (NULL);
-    stash = ft_strjoin(stash, buffer);
-  }
-  printf("The stash is: %s\n", stash);
-  return (stash);
-}
-
 char	*get_next_line(int fd)
 {
+	int			count;
+	int			stash_index;
 	char		*buffer;
-  int   bytes_read;
+	static char	stash[100];
+	char		*line;
 
-	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+	buffer = ft_calloc(5 + 1, sizeof(char));
 	if (buffer == NULL)
 		return (NULL);
-  bytes_read = read(fd, buffer, BUFFER_SIZE);
-  store_buffer_in_stash(buffer);
-  bytes_read = read(fd, buffer, BUFFER_SIZE);
-  store_buffer_in_stash(buffer);
+	stash_index = 0;
+	while (!ft_strchr(buffer, '\n'))
+	{
+		read(fd, buffer, BUFFER_SIZE);
+		count = 0;
+		while (buffer[count] != '\0')
+		{
+			stash[stash_index++] = buffer[count];
+			count++;
+		}
+	}
+	stash[stash_index] = '\0';
+	if (ft_strchr(stash, '\n'))
+	{
+		int	i = 0;
+		while (stash[i++]!= '\n')
+		{
+			printf("I is: %d\n", i);
+		}
+		line = ft_calloc(i, sizeof(char));
+		if (line == NULL)
+			return (NULL);
+		i = 0;
+		while (stash[i] != '\n')
+		{
+			line[i] = stash[i];
+			i++;
+		}
+		line[i] = '\n';
+	}
+  else
+    return (NULL);		
 
 	printf("The string in the buffer is: %s\n", buffer);
-  printf("The bytes read is: %d\n", bytes_read);
-  return (buffer);
+	printf("The string in the stash is: %s\n", stash);
+	free(buffer);
+	return (line);
 }	

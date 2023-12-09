@@ -13,41 +13,51 @@
 #include "get_next_line.h"
 #include <stdio.h>
 
-char *store_buffer_in_stash(char *buffer)
+char	*get_next_line(int fd)
 {
-  static char *stash;
-  if (stash == 0)
+	static  char  *stash;
+  char		      *buffer;
+  char          *temp;
+
+	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+  temp = NULL;
+	if (buffer == NULL)
+		return (NULL);
+  while (!ft_strchr(buffer, '\n'))
   {
-    stash = malloc(sizeof(char) * ft_strlen(buffer));
+    read(fd, buffer, BUFFER_SIZE);
+    if (stash != 0)
+    {
+      printf("Temp in test 1 before ft_calloc is: %s\n", temp);
+      temp = ft_calloc((ft_strlen(stash)), sizeof(char));
+      printf("Temp in test 1 after ft_calloc is: %s\n", temp);
+      ft_strlcpy(temp, stash, ft_strlen(stash) + 1 );
+      printf("Temp after ft_strlcpy is: %s\n", temp),
+      printf("The stash in test 1 before malloc is: %s\n", stash);
+      stash = malloc(sizeof(char) * ft_strlen(ft_strjoin(stash, buffer)));
+      printf("The stash in test 1 after malloc is: %s\n", stash);
+      if (stash == NULL)
+          return (NULL);
+
+      stash = ft_strjoin(temp, buffer);
+      printf("The stash in test 1 at the end is: %s\n", stash);
+    }
+    else if (stash == 0)
+    {
+      //printf("Temp is: %s\n", temp);
+      //printf("Test 2\n");
+      //printf("The stash in test 2 before malloc is: %s\n", stash);
+      stash = malloc(sizeof(char) * ft_strlen(buffer));
+      //printf("The stash in test 2 after malloc is: %s\n", stash);
       if (stash == NULL)
         return (NULL);
       stash = ft_strjoin(stash ,buffer);
+      //printf("The stash in test 2 at the end is: %s\n", stash);
+    }
+    
+    printf("Test 3\n");
   }
-  else
-  {
-    stash = malloc(sizeof(char) * ft_strlen(ft_strjoin(stash, buffer)));
-    if (stash == NULL)
-        return (NULL);
-    stash = ft_strjoin(stash, buffer);
-  }
+	printf("The string in the buffer is: %s\n", buffer);
   printf("The stash is: %s\n", stash);
   return (stash);
-}
-
-char	*get_next_line(int fd)
-{
-	char		*buffer;
-  int   bytes_read;
-
-	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
-	if (buffer == NULL)
-		return (NULL);
-  bytes_read = read(fd, buffer, BUFFER_SIZE);
-  store_buffer_in_stash(buffer);
-  bytes_read = read(fd, buffer, BUFFER_SIZE);
-  store_buffer_in_stash(buffer);
-
-	printf("The string in the buffer is: %s\n", buffer);
-  printf("The bytes read is: %d\n", bytes_read);
-  return (buffer);
 }	

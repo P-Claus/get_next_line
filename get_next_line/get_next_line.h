@@ -24,5 +24,6 @@ char    *ft_strchr(const char *str, int c);
 void    *ft_calloc(size_t num_elements, size_t element_size);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 char  *ft_strjoin(char const *s1, char  const *s2); 
+size_t  ft_strlcpy(char *dst, const char *src, size_t dstsize);
 
 #endif

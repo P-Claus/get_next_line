@@ -78,3 +78,22 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	new_string[index++] = '\0';
 	return (new_string);
 }
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	size_t	len;
+
+	len = 0;
+	if (dstsize == 0)
+		return (ft_strlen(src));
+	while (src[len] != '\0' && len < dstsize - 1)
+	{
+		dst[len] = src[len];
+		len++;
+	}
+	if (len < dstsize)
+		dst[len] = '\0';
+	while (src[len] != '\0')
+		len++;
+	return (len);
+}

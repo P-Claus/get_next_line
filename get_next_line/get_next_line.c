@@ -15,18 +15,18 @@
 
 char	*get_next_line(int fd)
 {
-	static  char  *stash;
-  char		      *buffer;
-  char          *temp;
+    static  char  *stash;
+    char		      *buffer;
+    char          *temp;
 
 	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
-  temp = NULL;
+    temp = NULL;
 	if (buffer == NULL)
 		return (NULL);
-  while (!ft_strchr(buffer, '\n'))
-  {
-    read(fd, buffer, BUFFER_SIZE);
-    if (stash != 0)
+    while (!ft_strchr(buffer, '\n'))
+    {
+        read(fd, buffer, BUFFER_SIZE);
+        if (stash != 0)
     {
       printf("Tep in test 1 before ft_calloc is: %s\n", temp);
       temp = ft_calloc((ft_strlen(stash)), sizeof(char));

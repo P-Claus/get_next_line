@@ -28,7 +28,7 @@ char	*get_next_line(int fd)
     read(fd, buffer, BUFFER_SIZE);
     if (stash != 0)
     {
-      printf("Temp in test 1 before ft_calloc is: %s\n", temp);
+      printf("Tep in test 1 before ft_calloc is: %s\n", temp);
       temp = ft_calloc((ft_strlen(stash)), sizeof(char));
       printf("Temp in test 1 after ft_calloc is: %s\n", temp);
       ft_strlcpy(temp, stash, ft_strlen(stash) + 1 );

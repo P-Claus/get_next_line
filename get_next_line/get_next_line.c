@@ -12,19 +12,17 @@
 
 #include "get_next_line.h"
 #include <stdio.h>
+#include <stdlib.h>
 
-char	*put_buffer_in_stash(int fd, char *stash, char *temp)
+char	*put_buffer_in_stash(int fd, char *stash, char *buffer, char *temp)
 {
-	char	*buffer;
-
-	if (!(buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char))))
-		return (NULL);
 	while (!ft_strchr(buffer, '\n'))
 	{
 		read(fd, buffer, BUFFER_SIZE);
 		if (stash != 0)
 		{
-			if (!(temp = ft_calloc((ft_strlen(stash)), sizeof(char))))
+			temp = ft_calloc(ft_strlen(stash), sizeof(char));
+			if (!temp)
 				return (NULL);
 			temp = ft_strjoin(temp, stash);
 			stash = malloc(sizeof(char) * ft_strlen(ft_strjoin(temp, buffer)));
@@ -34,21 +32,57 @@ char	*put_buffer_in_stash(int fd, char *stash, char *temp)
 		}
 		else if (stash == 0)
 		{
-			if (!(stash = malloc(sizeof(char) * ft_strlen(buffer))))
+			stash = ft_calloc(ft_strlen(buffer), sizeof(char));
+			if (!stash)
 				return (NULL);
 			stash = ft_strjoin(stash, buffer);
 		}
 	}
+	free(temp);
 	return (stash);
+}
+
+char	*put_stash_in_line(char *stash, char *line, int count)
+{
+	if (ft_strchr(stash, '\n'))
+	{
+		line = ft_calloc(count, sizeof(char));
+		if (line == NULL)
+			return (NULL);
+		while (stash[count] != '\n')
+		{
+			line[count] = stash[count];
+			count++;
+		}
+		line[count] = '\n';
+	}
+	return (line);
+}
+
+char	*remove_line_from_stash(char *stash)
+{
+
 }
 
 char	*get_next_line(int fd)
 {
-	static char		*stash;
-	char			*temp;
+	int			count;
+	static char	*stash;
+	char		*temp;
+	char		*buffer;
+	char		*line;
 
 	stash = NULL;
 	temp = NULL;
-	stash = put_buffer_in_stash(fd, stash, temp);
-	return (stash);
+	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+	if (!buffer)
+		return (NULL);
+	stash = put_buffer_in_stash(fd, stash, buffer, temp);
+	printf("The stash is: %s\n", stash);
+	line = NULL;
+	count = 0;
+	line = put_stash_in_line(stash, line, count);
+	printf("The line is: %s\n", line);
+	printf("The stash is: %s\n", stash);
+	return (line);
 }

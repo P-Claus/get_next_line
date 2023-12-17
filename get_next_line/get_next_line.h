@@ -26,5 +26,6 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size);
 char  *ft_strjoin(char const *s1, char  const *s2); 
 size_t  ft_strlcpy(char *dst, const char *src, size_t dstsize);
 void	*ft_memmove(void *dst, const void *src, size_t len);
+void	ft_bzero(void *s, size_t n);
 
 #endif

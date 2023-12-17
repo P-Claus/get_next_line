@@ -107,3 +107,12 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 	}
 	return (dst);
 }
+
+void	ft_bzero(void *s, size_t n)
+{
+	size_t	counter;
+
+	counter = 0;
+	while (counter < n)
+		*(char *)(s + counter++) = 0;
+}

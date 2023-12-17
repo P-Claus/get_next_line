@@ -58,20 +58,27 @@ char	*put_stash_in_line(char *stash, char *line, int count)
 	return (line);
 }
 
-char	*remove_line_from_stash(char *stash, char *line)
+char	*remove_line_from_stash(char *stash, char *line, char *buffer)
 {
-	int			length_of_line;
-	char	*temp;
+//	char	*temp;
+	int			new_stash_length;
+	int			i;
 	
-	while (*stash != '\n')
-		stash++;
-	length_of_line = ft_strlen(line);
-	temp = ft_calloc(ft_strlen(stash), sizeof(char));
-	if (!temp)
-		return (NULL);
-	ft_memmove(temp, stash, (ft_strlen(line) - ft_strlen(stash)));
-	printf("The length of the line is: %d\n", length_of_line);
-	printf("the char at index 13 is: %s\n", ++stash);
+	i = 0;
+	while (stash[i] != '\n')
+		i++;
+	i++;
+	//printf("I is: %d\n", i);
+	//temp = ft_calloc(ft_strlen(stash), sizeof(char));
+	//if (!temp)
+	//	return (NULL);
+	new_stash_length = ft_strlen(stash) - ft_strlen(line);
+	//printf("The length of new_stash is: %d\n", new_stash_length);
+	ft_memmove((void *)stash, (void *)(stash + i), new_stash_length);
+//	printf("Temp is: %s\n", temp);
+	ft_bzero((stash + new_stash_length), ft_strlen(stash));
+	printf("The buffer in the rlfs function is: %s\n", buffer);
+//	stash = ft_strjoin(stash, temp);
 	return (stash);
 
 
@@ -91,13 +98,14 @@ char	*get_next_line(int fd)
 	if (!buffer)
 		return (NULL);
 	stash = put_buffer_in_stash(fd, stash, buffer, temp);
-	printf("The stash is: %s\n", stash);
+	//printf("The stash is: %s\n", stash);
 	line = NULL;
 	count = 0;
 	line = put_stash_in_line(stash, line, count);
-	printf("The line is: %s\n", line);
-	printf("The stash before rlfs is: %s\n", stash);
-	remove_line_from_stash(stash, line);
-	printf("The stash after rlfs is: %s\n", stash);
+	//printf("The line is: %s\n", line);
+	//printf("The stash before rlfs is: %s\n", stash);
+	remove_line_from_stash(stash, line, buffer);
+	//printf("The stash after rlfs is: %s\n", stash);
+
 	return (line);
 }

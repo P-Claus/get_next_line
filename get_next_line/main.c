@@ -22,7 +22,15 @@ int main(void)
 	fd = open("example.txt", O_RDONLY);
 
 	next_line = get_next_line(fd);
-	printf("The line is: %s\n", next_line);
+	printf("The first line is: %s\n", next_line);
+
+	next_line = get_next_line(fd);
+	printf("The second line is: %s\n", next_line);
+
+	next_line = get_next_line(fd);
+	printf("The third line is: %s\n", next_line);
+
+
 	close(fd);
 
 	free(next_line);

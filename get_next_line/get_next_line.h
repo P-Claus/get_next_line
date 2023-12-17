@@ -25,5 +25,6 @@ void    *ft_calloc(size_t num_elements, size_t element_size);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 char  *ft_strjoin(char const *s1, char  const *s2); 
 size_t  ft_strlcpy(char *dst, const char *src, size_t dstsize);
+void	*ft_memmove(void *dst, const void *src, size_t len);
 
 #endif

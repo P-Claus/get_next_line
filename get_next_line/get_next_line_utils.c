@@ -79,21 +79,31 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (new_string);
 }
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	size_t	len;
+	size_t	counter;
 
-	len = 0;
-	if (dstsize == 0)
-		return (ft_strlen(src));
-	while (src[len] != '\0' && len < dstsize - 1)
+	if (!dst && !src)
+		return (0);
+	if (src < dst)
 	{
-		dst[len] = src[len];
-		len++;
+		counter = len;
+		while (counter > 0)
+		{
+			counter--;
+			*(unsigned char *)(dst + counter) = \
+				*(unsigned char *)(src + counter);
+		}
 	}
-	if (len < dstsize)
-		dst[len] = '\0';
-	while (src[len] != '\0')
-		len++;
-	return (len);
+	else
+	{
+		counter = 0;
+		while (counter < len)
+		{
+			*(unsigned char *)(dst + counter) = \
+				*(unsigned char *)(src + counter);
+			counter++;
+		}
+	}
+	return (dst);
 }

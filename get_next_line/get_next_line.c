@@ -12,7 +12,6 @@
 
 #include "get_next_line.h"
 #include <stdio.h>
-#include <stdlib.h>
 
 char	*put_buffer_in_stash(int fd, char *stash, char *buffer, char *temp)
 {
@@ -59,8 +58,22 @@ char	*put_stash_in_line(char *stash, char *line, int count)
 	return (line);
 }
 
-char	*remove_line_from_stash(char *stash)
+char	*remove_line_from_stash(char *stash, char *line)
 {
+	int			length_of_line;
+	char	*temp;
+	
+	while (*stash != '\n')
+		stash++;
+	length_of_line = ft_strlen(line);
+	temp = ft_calloc(ft_strlen(stash), sizeof(char));
+	if (!temp)
+		return (NULL);
+	ft_memmove(temp, stash, (ft_strlen(line) - ft_strlen(stash)));
+	printf("The length of the line is: %d\n", length_of_line);
+	printf("the char at index 13 is: %s\n", ++stash);
+	return (stash);
+
 
 }
 
@@ -83,6 +96,8 @@ char	*get_next_line(int fd)
 	count = 0;
 	line = put_stash_in_line(stash, line, count);
 	printf("The line is: %s\n", line);
-	printf("The stash is: %s\n", stash);
+	printf("The stash before rlfs is: %s\n", stash);
+	remove_line_from_stash(stash, line);
+	printf("The stash after rlfs is: %s\n", stash);
 	return (line);
 }

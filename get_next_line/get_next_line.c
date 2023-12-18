@@ -18,6 +18,7 @@ char	*put_buffer_in_stash(int fd, char *stash, char *buffer, char *temp)
 	while (!ft_strchr(buffer, '\n'))
 	{
 		read(fd, buffer, BUFFER_SIZE);
+		printf("The buffer is: %s\n", buffer);
 		if (stash != 0)
 		{
 			temp = ft_calloc(ft_strlen(stash), sizeof(char));

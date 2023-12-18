@@ -43,22 +43,19 @@ char	*put_buffer_in_stash(int fd, char *stash, char *buffer, char *temp)
 
 char	*put_stash_in_line(char *stash, char *line, int count)
 {
-	if (ft_strchr(stash, '\n'))
+	line = ft_calloc(count, sizeof(char));
+	if (line == NULL)
+		return (NULL);
+	while (stash[count] != '\n')
 	{
-		line = ft_calloc(count, sizeof(char));
-		if (line == NULL)
-			return (NULL);
-		while (stash[count] != '\n')
-		{
-			line[count] = stash[count];
-			count++;
-		}
-		line[count] = '\n';
+		line[count] = stash[count];
+		count++;
 	}
+	line[count] = '\n';
 	return (line);
 }
 
-char	*remove_line_from_stash(char *stash, char *line, char *buffer)
+char	*remove_line_from_stash(char *stash, char *line)
 {
 //	char	*temp;
 	int			new_stash_length;
@@ -77,7 +74,7 @@ char	*remove_line_from_stash(char *stash, char *line, char *buffer)
 	ft_memmove((void *)stash, (void *)(stash + i), new_stash_length);
 //	printf("Temp is: %s\n", temp);
 	ft_bzero((stash + new_stash_length), ft_strlen(stash));
-	printf("The buffer in the rlfs function is: %s\n", buffer);
+//	printf("The buffer in the rlfs function is: %s\n", buffer);
 //	stash = ft_strjoin(stash, temp);
 	return (stash);
 
@@ -92,19 +89,21 @@ char	*get_next_line(int fd)
 	char		*buffer;
 	char		*line;
 
-	stash = NULL;
+	if (fd == 0)
+		return (NULL);
+	if (!stash)
+		stash = NULL;
 	temp = NULL;
 	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	if (!buffer)
 		return (NULL);
 	stash = put_buffer_in_stash(fd, stash, buffer, temp);
-	//printf("The stash is: %s\n", stash);
 	line = NULL;
 	count = 0;
 	line = put_stash_in_line(stash, line, count);
 	//printf("The line is: %s\n", line);
 	//printf("The stash before rlfs is: %s\n", stash);
-	remove_line_from_stash(stash, line, buffer);
+	remove_line_from_stash(stash, line);
 	//printf("The stash after rlfs is: %s\n", stash);
 
 	return (line);

@@ -17,21 +17,23 @@
 int main(void)
 {
 	int    fd;
+	int    fd2;
 	char  *next_line;
+	char	*next_line2;
   
 	fd = open("example.txt", O_RDONLY);
+	fd2 = open("example2.txt", O_RDONLY);
 
 	next_line = get_next_line(fd);
-	printf("The first line is: %s\n", next_line);
+	printf("The first line in fd is: %s\n", next_line);
 
-	next_line = get_next_line(fd);
-	printf("The second line is: %s\n", next_line);
+	next_line2 = get_next_line(fd2);
+	printf("The first line in fd2 is: %s\n", next_line2);
 
-	next_line = get_next_line(fd);
-	printf("The third line is: %s\n", next_line);
 
 
 	close(fd);
+	close(fd2);
 
 	free(next_line);
 	return (0);

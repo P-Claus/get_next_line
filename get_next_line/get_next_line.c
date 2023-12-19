@@ -25,10 +25,12 @@ char	*put_buffer_in_stash(int fd, char *stash, char *buffer, char *temp, int byt
 			if (!temp)
 				return (NULL);
 			temp = ft_strjoin(temp, stash);
+			free(stash);
 			stash = malloc(sizeof(char) * ft_strlen(ft_strjoin(temp, buffer)));
 			if (stash == NULL)
 				return (NULL);
 			stash = ft_strjoin(temp, buffer);
+			free(temp);
 		}
 		else if (stash == 0)
 		{
@@ -38,7 +40,6 @@ char	*put_buffer_in_stash(int fd, char *stash, char *buffer, char *temp, int byt
 			stash = ft_strjoin(stash, buffer);
 		}
 	}
-	free(temp);
 	return (stash);
 }
 

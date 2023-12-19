@@ -21,7 +21,7 @@ int main(void)
 	char  *next_line;
 	//char	*next_line2;
   
-	fd = open("example.txt", O_RDONLY);
+	fd = open("example2.txt", O_RDONLY);
 	//fd2 = open("example2.txt", O_RDONLY);
 
 	next_line = get_next_line(fd);
@@ -33,7 +33,14 @@ int main(void)
 	//next_line2 = get_next_line(fd2);
 	//printf("The first line in fd2 is: %s\n", next_line2);
 
+	next_line = get_next_line(fd);
+	printf("The third line in fd is: %s\n", next_line);
 
+	next_line = get_next_line(fd);
+	printf("The fourth line in fd is: %s\n", next_line);
+
+	next_line = get_next_line(fd);
+	printf("The fifth line in fd is: %s\n", next_line);
 
 	close(fd);
 	//close(fd2);

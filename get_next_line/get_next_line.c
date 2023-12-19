@@ -13,12 +13,11 @@
 #include "get_next_line.h"
 #include <stdio.h>
 
-char	*put_buffer_in_stash(int fd, char *stash, char *buffer, char *temp)
+char	*put_buffer_in_stash(int fd, char *stash, char *buffer, char *temp, int bytes_read)
 {
-	while (!ft_strchr(buffer, '\n'))
+	while ((!ft_strchr(buffer, '\n')) && bytes_read > 0)
 	{
-		read(fd, buffer, BUFFER_SIZE);
-		printf("The buffer is: %s\n", buffer);
+		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (stash != 0)
 		{
 			temp = ft_calloc(ft_strlen(stash), sizeof(char));
@@ -58,7 +57,6 @@ char	*put_stash_in_line(char *stash, char *line, int count)
 
 char	*remove_line_from_stash(char *stash, char *line)
 {
-//	char	*temp;
 	int			new_stash_length;
 	int			i;
 	
@@ -66,17 +64,9 @@ char	*remove_line_from_stash(char *stash, char *line)
 	while (stash[i] != '\n')
 		i++;
 	i++;
-	//printf("I is: %d\n", i);
-	//temp = ft_calloc(ft_strlen(stash), sizeof(char));
-	//if (!temp)
-	//	return (NULL);
 	new_stash_length = ft_strlen(stash) - ft_strlen(line);
-	//printf("The length of new_stash is: %d\n", new_stash_length);
 	ft_memmove((void *)stash, (void *)(stash + i), new_stash_length);
-//	printf("Temp is: %s\n", temp);
 	ft_bzero((stash + new_stash_length), ft_strlen(stash));
-//	printf("The buffer in the rlfs function is: %s\n", buffer);
-//	stash = ft_strjoin(stash, temp);
 	return (stash);
 
 
@@ -85,6 +75,7 @@ char	*remove_line_from_stash(char *stash, char *line)
 char	*get_next_line(int fd)
 {
 	int			count;
+	int			bytes_read;
 	static char	*stash;
 	char		*temp;
 	char		*buffer;
@@ -98,14 +89,11 @@ char	*get_next_line(int fd)
 	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	if (!buffer)
 		return (NULL);
-	stash = put_buffer_in_stash(fd, stash, buffer, temp);
+	bytes_read = 1;
+	stash = put_buffer_in_stash(fd, stash, buffer, temp, bytes_read);
 	line = NULL;
 	count = 0;
 	line = put_stash_in_line(stash, line, count);
-	//printf("The line is: %s\n", line);
-	//printf("The stash before rlfs is: %s\n", stash);
 	remove_line_from_stash(stash, line);
-	//printf("The stash after rlfs is: %s\n", stash);
-
 	return (line);
 }

@@ -12,6 +12,7 @@
 
 #include "get_next_line.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 char	*put_buffer_in_stash(int fd, char *stash, char *buffer, char *temp, int bytes_read)
 {
@@ -95,5 +96,6 @@ char	*get_next_line(int fd)
 	count = 0;
 	line = put_stash_in_line(stash, line, count);
 	remove_line_from_stash(stash, line);
+	free(buffer);
 	return (line);
 }

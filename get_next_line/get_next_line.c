@@ -21,7 +21,7 @@ char	*put_buffer_in_stash(int fd, char *stash, char *buffer, char *temp, int byt
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (stash != 0)
 		{
-			temp = ft_calloc(ft_strlen(stash), sizeof(char));
+			temp = ft_calloc((ft_strlen(stash) + 1 ), sizeof(char));
 			if (!temp)
 				return (NULL);
 			temp = ft_strjoin(temp, stash);
@@ -34,7 +34,7 @@ char	*put_buffer_in_stash(int fd, char *stash, char *buffer, char *temp, int byt
 		}
 		else if (stash == 0)
 		{
-			stash = ft_calloc(ft_strlen(buffer), sizeof(char));
+			stash = ft_calloc((ft_strlen(buffer) + 1 ), sizeof(char));
 			if (!stash)
 				return (NULL);
 			stash = ft_strjoin(stash, buffer);
@@ -45,10 +45,10 @@ char	*put_buffer_in_stash(int fd, char *stash, char *buffer, char *temp, int byt
 
 char	*put_stash_in_line(char *stash, char *line, int count)
 {
-	line = ft_calloc(count, sizeof(char));
+	line = ft_calloc((count + 1 ), sizeof(char));
 	if (line == NULL)
 		return (NULL);
-	while (stash[count] != '\n')
+	while (stash[count] && stash[count] != '\n')
 	{
 		line[count] = stash[count];
 		count++;
@@ -70,8 +70,6 @@ char	*remove_line_from_stash(char *stash, char *line)
 	ft_memmove((void *)stash, (void *)(stash + i), new_stash_length);
 	ft_bzero((stash + new_stash_length), ft_strlen(stash));
 	return (stash);
-
-
 }
 
 char	*get_next_line(int fd)

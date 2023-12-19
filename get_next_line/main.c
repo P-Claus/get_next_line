@@ -20,7 +20,6 @@ int main(void)
 	//int    fd2;
 	char  *next_line;
 	//char	*next_line2;
-  
 	fd = open("example2.txt", O_RDONLY);
 	//fd2 = open("example2.txt", O_RDONLY);
 

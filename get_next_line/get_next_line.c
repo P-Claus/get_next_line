@@ -104,6 +104,5 @@ char	*get_next_line(int fd)
 	line = put_stash_in_line(stash, line, count);
 	remove_line_from_stash(stash, line);
 	free(buffer);
-	free(stash);
 	return (line);
 }

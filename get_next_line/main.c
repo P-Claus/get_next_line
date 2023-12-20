@@ -43,7 +43,7 @@ int main(void)
 
 	close(fd);
 	//close(fd2);
-
-	//free(next_line);
+	if (next_line)
+		free(next_line);
 	return (0);
 }

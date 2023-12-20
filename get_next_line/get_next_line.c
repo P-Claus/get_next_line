@@ -6,7 +6,7 @@
 /*   By: pclaus <pclaus@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:16:30 by pclaus            #+#    #+#             */
-/*   Updated: 2023/12/02 10:50:49 by pclaus           ###   ########.fr       */
+/*   Updated: 2023/12/20 21:21:43 by pclaus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*put_buffer_in_stash(int fd, char *stash, char *buffer, char *temp, int byt
 		}
 		else if (stash == 0)
 		{
-			stash = ft_calloc((ft_strlen(buffer) + 1 ), sizeof(char));
+			stash = ft_calloc((ft_strlen(buffer) + 1), sizeof(char));
 			if (!stash)
 				return (NULL);
 			
@@ -53,7 +53,7 @@ char	*put_buffer_in_stash(int fd, char *stash, char *buffer, char *temp, int byt
 
 char	*put_stash_in_line(char *stash, char *line, int count)
 {
-	line = ft_calloc((count + 1 ), sizeof(char));
+	line = ft_calloc(ft_strlen(stash) + 1, sizeof(char));
 	if (line == NULL)
 		return (NULL);
 	while (stash[count] && stash[count] != '\n')
@@ -94,7 +94,7 @@ char	*get_next_line(int fd)
 	if (!stash)
 		stash = NULL;
 	temp = NULL;
-	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+	buffer = ft_calloc(BUFFER_SIZE, sizeof(char));
 	if (!buffer)
 		return (NULL);
 	bytes_read = 1;
@@ -110,5 +110,6 @@ char	*get_next_line(int fd)
 	line = put_stash_in_line(stash, line, count);
 	remove_line_from_stash(stash, line);
 	free(buffer);
+	free(stash);
 	return (line);
 }

@@ -17,6 +17,7 @@
 char	*put_buffer_in_stash(int fd, char *stash, char *buffer, int bytes_read)
 {
 	char	*temp;
+	char	*original_temp;
 
 	while ((!ft_strchr(buffer, '\n')) && bytes_read > 0)
 	{
@@ -32,6 +33,7 @@ char	*put_buffer_in_stash(int fd, char *stash, char *buffer, int bytes_read)
 			temp = ft_calloc((ft_strlen(stash) + 1 ), sizeof(char));
 			if (!temp)
 				return (NULL);
+			original_temp = temp;
 			temp = ft_strjoin(temp, stash);
 			free(stash);
 			stash = malloc(sizeof(char) * (ft_strlen(temp)) + ft_strlen(buffer));
@@ -39,6 +41,7 @@ char	*put_buffer_in_stash(int fd, char *stash, char *buffer, int bytes_read)
 				return (NULL);
 			stash = ft_strjoin(temp, buffer);
 			free(temp);
+			free(original_temp);
 		}
 		else if (stash == 0)
 		{

@@ -24,7 +24,7 @@ char	*put_buffer_in_stash(int fd, char *stash, char *buffer, char *temp, int byt
 		if (bytes_read == 0)
 		{
 			free(stash);
-			break;
+			return (NULL);
 		}
 		if (stash != 0)
 		{

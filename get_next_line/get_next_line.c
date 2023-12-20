@@ -16,15 +16,16 @@
 
 char	*put_buffer_in_stash(int fd, char *stash, char *buffer, char *temp, int bytes_read)
 {
+
 	while ((!ft_strchr(buffer, '\n')) && bytes_read > 0)
 	{
+		
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read == 0)
 		{
 			free(stash);
-			return (NULL);
+			break;
 		}
-			
 		if (stash != 0)
 		{
 			temp = ft_calloc((ft_strlen(stash) + 1 ), sizeof(char));
@@ -43,6 +44,7 @@ char	*put_buffer_in_stash(int fd, char *stash, char *buffer, char *temp, int byt
 			stash = ft_calloc((ft_strlen(buffer) + 1 ), sizeof(char));
 			if (!stash)
 				return (NULL);
+			
 			stash = ft_strjoin(stash, buffer);
 		}
 	}

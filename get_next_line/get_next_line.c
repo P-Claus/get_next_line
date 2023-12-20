@@ -19,6 +19,8 @@ char	*put_buffer_in_stash(int fd, char *stash, char *buffer, char *temp, int byt
 	while ((!ft_strchr(buffer, '\n')) && bytes_read > 0)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
+		if (bytes_read == 0)
+			return (NULL);
 		if (stash != 0)
 		{
 			temp = ft_calloc((ft_strlen(stash) + 1 ), sizeof(char));
@@ -91,6 +93,8 @@ char	*get_next_line(int fd)
 		return (NULL);
 	bytes_read = 1;
 	stash = put_buffer_in_stash(fd, stash, buffer, temp, bytes_read);
+	if (!stash)
+		return (NULL);
 	line = NULL;
 	count = 0;
 	line = put_stash_in_line(stash, line, count);

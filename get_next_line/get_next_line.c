@@ -94,7 +94,11 @@ char	*get_next_line(int fd)
 	bytes_read = 1;
 	stash = put_buffer_in_stash(fd, stash, buffer, temp, bytes_read);
 	if (!stash)
+	{
+		free (buffer);
+		free (stash);
 		return (NULL);
+	}
 	line = NULL;
 	count = 0;
 	line = put_stash_in_line(stash, line, count);

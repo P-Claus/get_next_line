@@ -28,7 +28,7 @@ char	*put_buffer_in_stash(int fd, char *stash, char *buffer, char *temp, int byt
 				return (NULL);
 			temp = ft_strjoin(temp, stash);
 			free(stash);
-			stash = malloc(sizeof(char) * ft_strlen(ft_strjoin(temp, buffer)));
+			stash = malloc(sizeof(char) * (ft_strlen(temp)) + ft_strlen(buffer));
 			if (stash == NULL)
 				return (NULL);
 			stash = ft_strjoin(temp, buffer);

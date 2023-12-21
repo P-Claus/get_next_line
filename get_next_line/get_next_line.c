@@ -17,7 +17,7 @@
 char	*put_buffer_in_stash(int fd, char *stash, char *buffer, int bytes_read)
 {
 	char	*temp;
-//	char	*original_temp;
+	char	*original_temp;
 	int	count;
 	
 	count = 0;
@@ -29,7 +29,7 @@ char	*put_buffer_in_stash(int fd, char *stash, char *buffer, int bytes_read)
 		{
 			free(stash);
 			return (NULL);
-		}/*
+		}
 		if (stash != 0)
 		{
 			temp = ft_calloc((ft_strlen(stash) + 1 ), sizeof(char));
@@ -44,18 +44,21 @@ char	*put_buffer_in_stash(int fd, char *stash, char *buffer, int bytes_read)
 			stash = ft_strjoin(temp, buffer);
 			free(temp);
 			free(original_temp);
-		}*/
+		}
+		/*
 		if (stash != 0)
 		{
-			temp = ft_calloc((ft_strlen(stash)) , sizeof(char));
+			temp = ft_calloc((ft_strlen(stash) + 1 ), sizeof(char));
 			if (!temp)
 				return (NULL);
-			ft_strlcat(temp, stash, (ft_strlen(stash) + 1));
+			original_temp = temp;
+			temp = ft_strjoin(temp, stash);
 			free(stash);
 			stash = 0;
 			stash = ft_strjoin(temp, buffer);
 			free(temp);
-		}
+			free(original_temp);
+		}*/
 		else if (stash == 0)
 		{
 			stash = ft_calloc((ft_strlen(buffer) + 1), sizeof(char));

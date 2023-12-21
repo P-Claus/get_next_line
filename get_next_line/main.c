@@ -26,17 +26,17 @@ int main(void)
 	next_line = get_next_line(fd);
 	printf("The first line in fd is: %s\n", next_line);
 
-//	next_line = get_next_line(fd);
-//	printf("The second line in fd is: %s\n", next_line);
+	next_line = get_next_line(fd);
+	printf("The second line in fd is: %s\n", next_line);
 
 	//next_line2 = get_next_line(fd2);
 	//printf("The first line in fd2 is: %s\n", next_line2);
 
-//	next_line = get_next_line(fd);
-//	printf("The third line in fd is: %s\n", next_line);
+	next_line = get_next_line(fd);
+	printf("The third line in fd is: %s\n", next_line);
 
-//	next_line = get_next_line(fd);
-//	printf("The fourth line in fd is: %s\n", next_line);
+	next_line = get_next_line(fd);
+	printf("The fourth line in fd is: %s\n", next_line);
 
 //	next_line = get_next_line(fd);
 //	printf("The fifth line in fd is: %s\n", next_line);

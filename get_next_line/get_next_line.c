@@ -50,7 +50,7 @@ char	*put_buffer_in_stash(int fd, char *stash, char *buffer, int bytes_read)
 			temp = ft_calloc((ft_strlen(stash)) , sizeof(char));
 			if (!temp)
 				return (NULL);
-			ft_strlcat(temp, stash, ft_strlen(stash));
+			ft_strlcat(temp, stash, (ft_strlen(stash) + 1));
 			free(stash);
 			stash = 0;
 			stash = ft_strjoin(temp, buffer);
@@ -58,7 +58,7 @@ char	*put_buffer_in_stash(int fd, char *stash, char *buffer, int bytes_read)
 		}
 		else if (stash == 0)
 		{
-			stash = ft_calloc((ft_strlen(buffer)), sizeof(char));
+			stash = ft_calloc((ft_strlen(buffer) + 1), sizeof(char));
 			if (!stash)
 				return (NULL);
 			while (buffer[count] != '\0')
@@ -73,7 +73,7 @@ char	*put_buffer_in_stash(int fd, char *stash, char *buffer, int bytes_read)
 
 char	*put_stash_in_line(char *stash, char *line, int count)
 {
-	line = ft_calloc(ft_strlen(stash), sizeof(char));
+	line = ft_calloc(ft_strlen(stash) + 1, sizeof(char));
 	if (line == NULL)
 		return (NULL);
 	while (stash[count] && stash[count] != '\n')

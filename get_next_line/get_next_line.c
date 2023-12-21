@@ -14,61 +14,32 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-char	*put_buffer_in_stash(int fd, char *stash, char *buffer, int bytes_read)
+char	*put_buffer_in_stash(int fd, char *stash, char *buffer, char *temp, int bytes_read)
 {
-	char	*temp;
-	char	*original_temp;
-	int	count;
-	
-	count = 0;
 	while ((!ft_strchr(buffer, '\n')) && bytes_read > 0)
 	{
-		
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read == 0)
-		{
-			free(stash);
 			return (NULL);
-		}
 		if (stash != 0)
 		{
 			temp = ft_calloc((ft_strlen(stash) + 1 ), sizeof(char));
 			if (!temp)
 				return (NULL);
-			original_temp = temp;
 			temp = ft_strjoin(temp, stash);
 			free(stash);
-			stash = malloc(sizeof(char) * (ft_strlen(temp)) + ft_strlen(buffer));
+			stash = malloc(sizeof(char) * ft_strlen(ft_strjoin(temp, buffer)));
 			if (stash == NULL)
 				return (NULL);
 			stash = ft_strjoin(temp, buffer);
 			free(temp);
-			free(original_temp);
 		}
-		/*
-		if (stash != 0)
-		{
-			temp = ft_calloc((ft_strlen(stash) + 1 ), sizeof(char));
-			if (!temp)
-				return (NULL);
-			original_temp = temp;
-			temp = ft_strjoin(temp, stash);
-			free(stash);
-			stash = 0;
-			stash = ft_strjoin(temp, buffer);
-			free(temp);
-			free(original_temp);
-		}*/
 		else if (stash == 0)
 		{
-			stash = ft_calloc((ft_strlen(buffer) + 1), sizeof(char));
+			stash = ft_calloc((ft_strlen(buffer) + 1 ), sizeof(char));
 			if (!stash)
 				return (NULL);
-			while (buffer[count] != '\0')
-			{
-				stash[count] = buffer[count];
-				count++;
-			}
+			stash = ft_strjoin(stash, buffer);
 		}
 	}
 	return (stash);
@@ -76,7 +47,7 @@ char	*put_buffer_in_stash(int fd, char *stash, char *buffer, int bytes_read)
 
 char	*put_stash_in_line(char *stash, char *line, int count)
 {
-	line = ft_calloc(ft_strlen(stash) + 1, sizeof(char));
+	line = ft_calloc((count + 1 ), sizeof(char));
 	if (line == NULL)
 		return (NULL);
 	while (stash[count] && stash[count] != '\n')
@@ -108,6 +79,7 @@ char	*get_next_line(int fd)
 	int			count;
 	int			bytes_read;
 	static char	*stash;
+	char		*temp;
 	char		*buffer;
 	char		*line;
 
@@ -115,11 +87,12 @@ char	*get_next_line(int fd)
 		return (NULL);
 	if (!stash)
 		stash = NULL;
+	temp = NULL;
 	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	if (!buffer)
 		return (NULL);
 	bytes_read = 1;
-	stash = put_buffer_in_stash(fd, stash, buffer, bytes_read);
+	stash = put_buffer_in_stash(fd, stash, buffer, temp, bytes_read);
 	if (!stash)
 	{
 		free (buffer);
@@ -131,6 +104,5 @@ char	*get_next_line(int fd)
 	line = put_stash_in_line(stash, line, count);
 	remove_line_from_stash(stash, line);
 	free(buffer);
-	free(stash);
 	return (line);
 }

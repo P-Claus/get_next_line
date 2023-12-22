@@ -20,11 +20,6 @@ char	*put_buffer_in_stash(int fd, char *stash, char *buffer, char *temp, int byt
 	char	*intermediate;
 
 	count = 0;
-	stash = ft_calloc((ft_strlen(buffer) + 1 ), sizeof(char));
-	if (!stash)
-		return (NULL);
-	while (buffer[count++] != '\0')
-		stash[count] = buffer[count];
 	while ((!ft_strchr(buffer, '\n')) && bytes_read > 0)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
@@ -33,6 +28,14 @@ char	*put_buffer_in_stash(int fd, char *stash, char *buffer, char *temp, int byt
 			free(stash);
 			return (NULL);
 		}
+		if (stash == 0)
+		{
+			stash = ft_calloc((ft_strlen(buffer) + 1 ), sizeof(char));
+			if (!stash)
+				return (NULL);
+			while (buffer[count++] != '\0')
+				stash[count] = buffer[count];
+		}
 		temp = ft_calloc((ft_strlen(stash) + 1 ), sizeof(char));
 		if (!temp)
 			return (NULL);
@@ -40,8 +43,6 @@ char	*put_buffer_in_stash(int fd, char *stash, char *buffer, char *temp, int byt
 		temp = ft_strjoin(temp, stash);
 		free(stash);
 		free(intermediate);
-		printf("Temp is: %s\n", temp);
-		printf("Buffer is: %s\n", buffer);
 		stash = malloc(sizeof(char) * (ft_strlen(temp) + ft_strlen(buffer)));
 		intermediate = stash;
 		if (stash == NULL)

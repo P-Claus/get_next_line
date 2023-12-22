@@ -20,20 +20,23 @@ int main(void)
 	//int    fd2;
 	char  *next_line;
 	//char	*next_line2;
-	fd = open("example.txt", O_RDONLY);
+	fd = open("example6.txt", O_RDONLY);
 	//fd2 = open("example2.txt", O_RDONLY);
 
 	next_line = get_next_line(fd);
 	printf("The first line in fd is: %s\n", next_line);
+	free(next_line);
 
 	next_line = get_next_line(fd);
 	printf("The second line in fd is: %s\n", next_line);
+	free(next_line);
 
 	//next_line2 = get_next_line(fd2);
 	//printf("The first line in fd2 is: %s\n", next_line2);
 
 	next_line = get_next_line(fd);
 	printf("The third line in fd is: %s\n", next_line);
+	free(next_line);
 
 	next_line = get_next_line(fd);
 	printf("The fourth line in fd is: %s\n", next_line);
@@ -43,7 +46,6 @@ int main(void)
 
 	close(fd);
 	//close(fd2);
-	if (next_line)
-		free(next_line);
+	free(next_line);
 	return (0);
 }

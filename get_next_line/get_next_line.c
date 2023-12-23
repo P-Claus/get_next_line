@@ -36,6 +36,7 @@ char	*put_buffer_in_stash(int fd, char *stash, char *buffer, char *temp, int byt
 			while (buffer[count++] != '\0')
 				stash[count] = buffer[count];
 		}
+		/////// Change this to also save the first line
 		temp = ft_calloc((ft_strlen(stash) + 1 ), sizeof(char));
 		if (!temp)
 			return (NULL);
@@ -50,6 +51,8 @@ char	*put_buffer_in_stash(int fd, char *stash, char *buffer, char *temp, int byt
 		stash = ft_strjoin(temp, buffer);
 		free(temp);
 		free(intermediate);
+		////////
+		
 	}
 	return (stash);
 }

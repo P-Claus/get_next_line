@@ -16,6 +16,18 @@
 
 int main(void)
 {
+	int	fd;
+	char	*next_line;
+
+	fd = open("example.txt", O_RDONLY);
+	next_line = get_next_line(fd);
+
+	printf("The first line in fd is: %s\n", next_line);
+	close(fd);
+	return (0);
+	/*
+
+	printf("test1");
 	int    fd;
 	char  *next_line;
 	fd = open("example2.txt", O_RDONLY);
@@ -30,4 +42,5 @@ int main(void)
 	close(fd);
 	free(next_line);
 	return (0);
+	*/
 }

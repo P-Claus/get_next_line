@@ -14,26 +14,50 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-char	*put_buffer_in_stash(int fd, char *buffer, char *stash)
+void	copy_string(char *s1, char *s2, int count)
+{
+	while (s2[count])
+	{
+		s1[count] = s2[count];
+		count++;
+	}
+}
+
+char	*put_buffer_in_stash(int fd, char *stash, char *buffer)
 {
 	int	bytes_read;
 	char	*temp;
-printf("test1");
-	while (!(ft_strchr(buffer, '\n')))
+
+	while ((!ft_strchr(buffer, '\n')) && BUFFER_SIZE >= 0)
 	{
-		printf("test2");
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read == -1)
 			return (NULL);
-		temp = ft_strjoin(stash, buffer);
-		printf("temp is: %s\n", temp);
+		if (stash == NULL)
+		{
+			stash = ft_calloc(ft_strlen(buffer), sizeof(char));
+			copy_string(stash, buffer, 0);
+/*			while (buffer[i])
+			{
+				stash[i] = buffer[i];
+				i++;
+			}*/
+		}
+		else if (stash != NULL)
+		{
+			temp = ft_calloc(ft_strlen(stash), sizeof(char));
+			copy_string(temp, stash, 0);
+		/*	while (stash[i])
+			{
+				temp[i] = stash[i];
+				i++;
+			}*/
+			free(stash);
+			stash = ft_strjoin(temp, buffer);
+			free(temp);
+		}
 	}
-
-//	stash = ft_calloc((ft_strlen(buffer) + 1), sizeof(char));
-//	if (!stash)
-//		return (NULL);
-//	while (buffer[count++] != '\0')
-//		stash[count] = buffer[count];
+	printf("stash is: %s\n", stash);
 	return (stash);
 }
 
@@ -70,27 +94,26 @@ char	*get_next_line(int fd)
 {
 	static char	*stash;
 	char		*buffer;
-	//char		*line;
+	char		*line;
 
-	if (fd == 0)
+	if (fd <= 0)
 		return (NULL);
 	if (!stash)
 		stash = NULL;
-	printf("test before put buffer in stash");
 	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	if (!buffer)
 		return (NULL);
-	stash = put_buffer_in_stash(fd, buffer, stash);
+	stash = put_buffer_in_stash(fd, stash, buffer);
 	if (!stash)
 	{
 		free (buffer);
 		free (stash);
 		return (NULL);
 	}
-	/*line = 0;
+	line = 0;
 	line = put_stash_in_line(stash, line, 0);
 	remove_line_from_stash(stash, line);
 	free(buffer);
-	return (line);*/
+	return (line);
 	return (stash);
 }

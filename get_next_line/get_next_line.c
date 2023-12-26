@@ -14,47 +14,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-char	*put_buffer_in_stash(int fd, char *stash, char *buffer, char *temp, int bytes_read)
+char	*put_buffer_in_stash(int fd, char *buffer, char *stash, int	count)
 {
-	int	count;
-	char	*intermediate;
+	int	bytes_read;
 
-	count = 0;
-	while ((!ft_strchr(buffer, '\n')) && bytes_read > 0)
-	{
-		bytes_read = read(fd, buffer, BUFFER_SIZE);
-		if (bytes_read == 0)
-		{
-			free(stash);
-			return (NULL);
-		}
-		if (stash == 0)
-		{
-			stash = ft_calloc((ft_strlen(buffer) + 1 ), sizeof(char));
-			if (!stash)
-				return (NULL);
-			while (buffer[count++] != '\0')
-				stash[count] = buffer[count];
-		}
-		/////// Change this to also save the first line
-		temp = ft_calloc((ft_strlen(stash) + 1 ), sizeof(char));
-		if (!temp)
-			return (NULL);
-		intermediate = temp;
-		temp = ft_strjoin(temp, stash);
-		free(stash);
-		free(intermediate);
-		stash = malloc(sizeof(char) * (ft_strlen(temp) + ft_strlen(buffer)));
-		intermediate = stash;
-		if (stash == NULL)
-			return (NULL);
-		stash = ft_strjoin(temp, buffer);
-		free(temp);
-		free(intermediate);
-		////////
-		
-	}
-	return (stash);
+	bytes_read = read(fd, buffer, BUFFER_SIZE);
+	stash = ft_calloc((ft_strlen(buffer) + 1), sizeof(char));
+	if (!stash)
+		return (NULL);
+//	while (buffer[count++] != '\0')
+//		stash[count] = buffer[count];
+	while (buffer[count] != '\0')
+		printf("The char in buffer is: %c\n", buffer[count++]);
+	printf("%d\n", bytes_read);
+	return ("hello");
 }
 
 char	*put_stash_in_line(char *stash, char *line, int count)
@@ -90,7 +63,7 @@ char	*get_next_line(int fd)
 {
 	static char	*stash;
 	char		*buffer;
-	char		*line;
+	//char		*line;
 
 	if (fd == 0)
 		return (NULL);
@@ -99,16 +72,17 @@ char	*get_next_line(int fd)
 	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	if (!buffer)
 		return (NULL);
-	stash = put_buffer_in_stash(fd, stash, buffer, NULL, 1);
+	stash = put_buffer_in_stash(fd, buffer, stash, 0);
 	if (!stash)
 	{
 		free (buffer);
 		free (stash);
 		return (NULL);
 	}
-	line = 0;
+	/*line = 0;
 	line = put_stash_in_line(stash, line, 0);
 	remove_line_from_stash(stash, line);
 	free(buffer);
-	return (line);
+	return (line);*/
+	return (stash);
 }

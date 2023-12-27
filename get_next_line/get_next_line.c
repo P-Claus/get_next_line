@@ -76,16 +76,12 @@ void	remove_line_from_stash(char *stash, size_t length_of_line)
 	while (stash[i] != '\n')
 		i++;
 	i++;
-	printf("the char is %c\n", stash[i]);
-	printf("The length of stash is: %lu\n", ft_strlen(stash));
-	printf("The length of line is: %lu\n", length_of_line);
 	new_stash_length = ft_strlen(stash) - length_of_line;
-	printf("The new_stash_length is: %d\n", new_stash_length);
-	//working on this function -> the line and everything is working
-	//but still need to figure out how to make sure 
 	ft_memmove((void *)stash, (void *)(stash + i), new_stash_length);
-	ft_bzero((stash + new_stash_length), ft_strlen(stash));
-	printf("The stash is: %s\n", stash);
+	while ( new_stash_length < (int)ft_strlen(stash))
+	{
+		stash[new_stash_length] = 0;
+	}
 }
 
 char	*get_next_line(int fd)
@@ -110,9 +106,7 @@ char	*get_next_line(int fd)
 	}
 	line = 0;
 	line = put_stash_in_line(stash, line);
-	printf("1: The line is: %s\n", line);
 	remove_line_from_stash(stash, ft_strlen(line));
-	printf("2: The line is: %s\n", line);
 	free(buffer);
 	return (line);
 }

@@ -19,7 +19,7 @@ int main(void)
 	int	fd;
 	char	*next_line;
 
-	fd = open("example7.txt", O_RDONLY);
+	fd = open("example8.txt", O_RDONLY);
 	next_line = get_next_line(fd);
 
 	printf("The first line in fd is: %s\n", next_line);

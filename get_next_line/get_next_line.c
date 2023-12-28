@@ -32,7 +32,10 @@ char	*put_buffer_in_stash(int fd, char *stash, char *buffer)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read == -1 || bytes_read == 0)
+		{
+			free(stash);
 			return (NULL);
+		}
 		if (stash == NULL)
 		{
 			stash = ft_calloc(ft_strlen(buffer), sizeof(char));

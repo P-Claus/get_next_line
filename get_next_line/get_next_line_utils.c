@@ -68,7 +68,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	index_s1 = 0;
 	index_s2 = 0;
 	total_length = ft_strlen(s1) + ft_strlen(s2);
-	new_string = (char*) malloc((total_length + 1) * sizeof(char));
+	new_string = (char *) malloc((total_length + 1) * sizeof(char));
 	if (new_string == NULL)
 		return (NULL);
 	while (s1[index_s1] != '\0')
@@ -106,13 +106,4 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 		}
 	}
 	return (dst);
-}
-
-void	ft_bzero(void *s, size_t n)
-{
-	size_t	counter;
-
-	counter = 0;
-	while (counter < n)
-		*(char *)(s + counter++) = 0;
 }

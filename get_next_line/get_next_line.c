@@ -66,7 +66,6 @@ char	*put_stash_in_line(char *stash, char *line)
 		line[count] = stash[count];
 		count++;
 	}
-	line[count] = '\n';
 	return (line);
 }
 
@@ -74,14 +73,14 @@ void	remove_line_from_stash(char *stash, size_t length_of_line)
 {
 	int			new_stash_length;
 	int			i;
-	
+
 	i = 0;
 	while (stash[i] != '\n')
 		i++;
 	i++;
 	new_stash_length = ft_strlen(stash) - length_of_line;
 	ft_memmove((void *)stash, (void *)(stash + i), new_stash_length);
-	while ( new_stash_length < (int)ft_strlen(stash))
+	while (new_stash_length < (int)ft_strlen(stash))
 	{
 		stash[new_stash_length] = 0;
 	}

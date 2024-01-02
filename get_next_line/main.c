@@ -19,12 +19,12 @@ int main(void)
 	int	fd;
 	char	*next_line;
 
-	fd = open("example11.txt", O_RDONLY);
+	fd = open("example.txt", O_RDONLY);
 	next_line = get_next_line(fd);
 
 	printf("The first line in fd is: %s\n", next_line);
-	free(next_line);
-
+//	free(next_line);
+/*
 	next_line = get_next_line(fd);
 	printf("The second line in fd is: %s\n", next_line);
 	free(next_line);
@@ -49,7 +49,6 @@ int main(void)
 
 	close(fd);
 	return (0);
-	/*
 
 	printf("test1");
 	int    fd;

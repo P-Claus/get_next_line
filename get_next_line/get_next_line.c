@@ -21,6 +21,7 @@ void	copy_string(char *s1, char *s2, int count)
 		s1[count] = s2[count];
 		count++;
 	}
+	s1[count] = '\0';
 }
 
 char	*put_buffer_in_stash(int fd, char *stash, char *buffer)
@@ -28,7 +29,7 @@ char	*put_buffer_in_stash(int fd, char *stash, char *buffer)
 	int	bytes_read;
 	char	*temp;
 
-	while ((!ft_strchr(buffer, '\n')) && BUFFER_SIZE >= 0)
+	while ((!ft_strchr(buffer, '\n')) && bytes_read >= 0)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read == -1 || bytes_read == 0)
@@ -36,6 +37,7 @@ char	*put_buffer_in_stash(int fd, char *stash, char *buffer)
 			free(stash);
 			return (NULL);
 		}
+		buffer[bytes_read] = '\0';
 		if (stash == NULL)
 		{
 			stash = ft_calloc(ft_strlen(buffer), sizeof(char));

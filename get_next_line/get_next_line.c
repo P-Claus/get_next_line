@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-char	*fill_stash(int fd, char *string)
+char	*fill_stash(int fd, char *stash)
 {
 	int		bytes_read;
 	char	*buffer;
@@ -23,15 +23,18 @@ char	*fill_stash(int fd, char *string)
 	if (!buffer)
 		return (NULL);
 	bytes_read = 1;
-	while (!ft_strchr(string, '\n') && bytes_read >= 0)
+	while (!ft_strchr(stash, '\n') && bytes_read != 0)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read == -1)
+		{
+			free (buffer);
 			return (NULL);
-		string = ft_strjoin(string, buffer);	
+		}
+		stash = ft_strjoin(stash, buffer);
 	}
 	free (buffer);
-	return (string);
+	return (stash);
 }
 
 char	*get_next_line(int fd)
@@ -39,7 +42,6 @@ char	*get_next_line(int fd)
 	//char	*line;
 	static char	*stash;
 
-	printf("test");
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	stash = fill_stash(fd, stash);

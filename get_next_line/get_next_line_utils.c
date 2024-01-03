@@ -28,12 +28,20 @@ size_t	ft_strlen(const char *s)
 
 char	*ft_strchr(char *str, int c)
 {
-	while (*str != (char)c)
+	size_t	i;
+
+	i = 0;
+	if (!str)
+		return (NULL);
+	if (c == '\0')
+		return ((char *)&str[ft_strlen(str)]);
+	while (str[i])
 	{
-		if (!*str++)
-			return (0);
+		if (str[i] == (char)c)
+			return ((char *)&str[i]);
+		i++;
 	}
-	return ((char *)str);
+	return (NULL);
 }
 
 void	*ft_calloc(size_t num_elements, size_t element_size)
@@ -58,54 +66,30 @@ void	*ft_calloc(size_t num_elements, size_t element_size)
 	return (ptr);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *left_str, char *buff)
 {
-	int		total_length;
-	int		index;
-	int		index_s1;
-	int		index_s2;
-	char	*new_string;
+	size_t	i;
+	size_t	j;
+	char	*str;
 
-	index = 0;
-	index_s1 = 0;
-	index_s2 = 0;
-	total_length = ft_strlen(s1) + ft_strlen(s2);
-	new_string = (char *) malloc((total_length + 1) * sizeof(char));
-	if (new_string == NULL)
+	if (!left_str)
+	{
+		left_str = (char *)malloc(1 * sizeof(char));
+		left_str[0] = '\0';
+	}
+	if (!left_str || !buff)
 		return (NULL);
-	while (s1[index_s1] != '\0')
-		new_string[index++] = s1[index_s1++];
-	while (s2[index_s2] != '\0')
-		new_string[index++] = s2[index_s2++];
-	new_string[index++] = '\0';
-	return (new_string);
-}
-
-void	*ft_memmove(void *dst, const void *src, size_t len)
-{
-	size_t	counter;
-
-	if (!dst && !src)
-		return (0);
-	if (src < dst)
-	{
-		counter = len;
-		while (counter > 0)
-		{
-			counter--;
-			*(unsigned char *)(dst + counter) = \
-				*(unsigned char *)(src + counter);
-		}
-	}
-	else
-	{
-		counter = 0;
-		while (counter < len)
-		{
-			*(unsigned char *)(dst + counter) = \
-				*(unsigned char *)(src + counter);
-			counter++;
-		}
-	}
-	return (dst);
+	str = malloc(sizeof(char) * ((ft_strlen(left_str) + ft_strlen(buff)) + 1));
+	if (str == NULL)
+		return (NULL);
+	i = -1;
+	j = 0;
+	if (left_str)
+		while (left_str[++i] != '\0')
+			str[i] = left_str[i];
+	while (buff[j] != '\0')
+		str[i++] = buff[j++];
+	str[ft_strlen(left_str) + ft_strlen(buff)] = '\0';
+	free(left_str);
+	return (str);
 }

@@ -14,6 +14,31 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+char	*remove_line_from_stash(char *stash)
+{
+	int		count;
+	int		i;
+	char	*string;
+
+	count = 0;
+	while (stash[count] && stash[count] != '\n')
+		count++;
+	if (!stash[count])
+	{
+		free (stash);
+		return (NULL);
+	}
+	count++;
+	string = ft_calloc((ft_strlen(stash) - count), sizeof(char));
+	if (!string)
+		return (NULL);
+	i = 0;
+	while (stash[count])
+		string[i++] = stash[count++];
+	free (stash);
+	return (string);
+}
+
 char	*put_stash_in_line(char *stash, char *line)
 {
 	int	count;
@@ -63,6 +88,7 @@ char	*get_next_line(int fd)
 	if (!line)
 		return (NULL);
 	line = put_stash_in_line(stash, line);
-	printf("The stash is: %s\n", stash);
+	stash = remove_line_from_stash(stash);
+
 	return (line);
 }

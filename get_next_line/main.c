@@ -21,8 +21,13 @@ int main(void)
 
 	fd = open("example.txt", O_RDONLY);
 	line = 	get_next_line(fd);
-	printf("The line is: %s\n", line);
+	printf("The first line is: %s\n", line);
+	free (line);
 	
+	line = 	get_next_line(fd);
+	printf("The second line is: %s\n", line);
+	free (line);
+
 	close(fd);
 	return (0);
 }

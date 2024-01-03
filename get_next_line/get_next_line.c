@@ -14,6 +14,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+char	*put_stash_in_line(char *stash, char *line)
+{
+	int	count;
+
+	count = 0;
+	
+	while (stash[count] && stash[count] != '\n')
+	{
+		line[count] = stash[count];
+		count++;
+	}
+	return (line);
+}
+
 char	*fill_stash(int fd, char *stash)
 {
 	int		bytes_read;
@@ -39,11 +53,16 @@ char	*fill_stash(int fd, char *stash)
 
 char	*get_next_line(int fd)
 {
-	//char	*line;
+	char	*line;
 	static char	*stash;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	stash = fill_stash(fd, stash);
-	return (stash);
+	line = ft_calloc((ft_strlen(stash) + 1), sizeof(char));
+	if (!line)
+		return (NULL);
+	line = put_stash_in_line(stash, line);
+	printf("The stash is: %s\n", stash);
+	return (line);
 }

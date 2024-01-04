@@ -6,7 +6,7 @@
 /*   By: pclaus <pclaus@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 21:45:09 by pclaus            #+#    #+#             */
-/*   Updated: 2023/12/20 19:32:32 by pclaus           ###   ########.fr       */
+/*   Updated: 2024/01/04 15:28:40 by pclaus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int main(void)
 	int	fd;
 	char	*line;
 
-	fd = open("example10.txt", O_RDONLY);
+	fd = open("example11.txt", O_RDONLY);
 	line = 	get_next_line(fd);
 	printf("The first line is: %s", line);
 	free (line);

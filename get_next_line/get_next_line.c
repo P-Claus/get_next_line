@@ -6,13 +6,12 @@
 /*   By: pclaus <pclaus@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:16:30 by pclaus            #+#    #+#             */
-/*   Updated: 2023/12/20 21:21:43 by pclaus           ###   ########.fr       */
+/*   Updated: 2024/01/04 15:23:25 by pclaus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
-#include <stdlib.h>
 
 char	*remove_line_from_stash(char *stash)
 {
@@ -41,7 +40,7 @@ char	*remove_line_from_stash(char *stash)
 
 char	*put_stash_in_line(char *stash)
 {
-	int	count;
+	int		count;
 	char	*line;
 
 	count = 0;
@@ -65,7 +64,6 @@ char	*fill_stash(int fd, char *stash)
 	int		bytes_read;
 	char	*buffer;
 
-	
 	bytes_read = 1;
 	while (!ft_strchr(stash, '\n') && bytes_read != 0)
 	{
@@ -81,7 +79,6 @@ char	*fill_stash(int fd, char *stash)
 		}
 		stash = ft_strjoin(stash, buffer);
 //	printf("The buffer is: %s", buffer);
-		
 //	printf("The stash is: %s", stash);
 		free (buffer);
 	}
@@ -90,7 +87,7 @@ char	*fill_stash(int fd, char *stash)
 
 char	*get_next_line(int fd)
 {
-	char	*line;
+	char		*line;
 	static char	*stash;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
@@ -100,6 +97,5 @@ char	*get_next_line(int fd)
 		return (NULL);
 	line = put_stash_in_line(stash);
 	stash = remove_line_from_stash(stash);
-
 	return (line);
 }

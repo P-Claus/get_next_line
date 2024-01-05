@@ -97,5 +97,8 @@ char	*get_next_line(int fd)
 		return (NULL);
 	line = put_stash_in_line(stash);
 	stash = remove_line_from_stash(stash);
+	//the code below needs work -> maybe freeing the stash if there is nothing in it?
+	if (stash == 0)
+		free (stash);
 	return (line);
 }

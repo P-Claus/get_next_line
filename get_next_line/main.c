@@ -19,15 +19,14 @@ int main(void)
 	int	fd;
 	char	*line;
 
-	fd = open("example8.txt", O_RDONLY);
+	fd = open("example7.txt", O_RDONLY);
 	line = 	get_next_line(fd);
 	printf("The first line is: %s", line);
 	free (line);
 	
-	//line = 	get_next_line(fd);
-	//printf("The second line is: %s", line);
-	//free (line);
-	//printf("Test");
+	line = 	get_next_line(fd);
+	printf("The second line is: %s", line);
+	free (line);
 
 	close(fd);
 	return (0);

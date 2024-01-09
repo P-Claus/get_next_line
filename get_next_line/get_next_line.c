@@ -96,7 +96,5 @@ char	*get_next_line(int fd)
 		return (NULL);
 	line = put_stash_in_line(stash);
 	stash = remove_line_from_stash(stash);
-	if (*stash == '\n')
-		free (stash);
 	return (line);
 }

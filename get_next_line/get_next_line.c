@@ -27,8 +27,9 @@ char	*remove_line_from_stash(char *stash)
 		free (stash);
 		return (NULL);
 	}
+	
 	count++;
-	string = ft_calloc((ft_strlen(stash) - count), sizeof(char));
+	string = ft_calloc((ft_strlen(stash) - count + 1), sizeof(char));
 	if (!string)
 		return (NULL);
 	i = 0;
@@ -78,8 +79,6 @@ char	*fill_stash(int fd, char *stash)
 			return (NULL);
 		}
 		stash = ft_strjoin(stash, buffer);
-//	printf("The buffer is: %s", buffer);
-//	printf("The stash is: %s", stash);
 		free (buffer);
 	}
 	return (stash);
@@ -97,8 +96,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	line = put_stash_in_line(stash);
 	stash = remove_line_from_stash(stash);
-	//the code below needs work -> maybe freeing the stash if there is nothing in it?
-	if (stash == 0)
+	if (*stash == '\n')
 		free (stash);
 	return (line);
 }

@@ -27,7 +27,6 @@ char	*remove_line_from_stash(char *stash)
 		free (stash);
 		return (NULL);
 	}
-	
 	count++;
 	string = ft_calloc((ft_strlen(stash) - count + 1), sizeof(char));
 	if (!string)

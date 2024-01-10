@@ -38,6 +38,16 @@ char	*remove_line_from_stash(char *stash)
 	return (string);
 }
 
+/*
+char *remove_line_from_stash(char *stash)
+{
+	int	count;
+	int	i;
+
+	count = 0;
+	while
+}
+*/
 char	*put_stash_in_line(char *stash)
 {
 	int		count;
@@ -95,5 +105,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	line = put_stash_in_line(stash);
 	stash = remove_line_from_stash(stash);
+	if (*stash == '\0')
+		free (stash);
 	return (line);
 }

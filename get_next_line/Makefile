@@ -14,27 +14,29 @@ NAME = getnextline.a
 
 CFLAGS = -Wall -Werror -Wextra
 
+CC = cc
+
+RM = rm -f
+
 SOURCES = get_next_line.c get_next_line_utils.c
 
-OBJ_FILES = $(SOURCES:.c=.o)
+OBJ_FILES = $(SOURCES:%.c=%.o)
 
 #colours
 GREEN = \033[0;92m
 
-all: $(NAME)
-
-$(NAME):
+$(NAME): $(SOURCES)
 	cc $(CFLAGS) -c $(SOURCES)
 	@ar rcs $(NAME) $(OBJ_FILES)
 	@echo "$(GREEN)getnextline.a has been compiled!"
 
 clean:
-	@rm -f $(OBJ_FILES)
+	@$(RM) $(OBJ_FILES)
 	@echo "$(GREEN)The object files have been removed!"
 
 fclean: 
-	@rm -f $(OBJ_FILES)
-	@rm -f $(NAME)
+	@$(RM) $(OBJ_FILES)
+	@$(RM) $(NAME)
 	@echo "$(GREEN)The object files and library have been removed!"
 
 re:	fclean $(NAME)

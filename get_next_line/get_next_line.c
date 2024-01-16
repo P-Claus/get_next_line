@@ -6,7 +6,7 @@
 /*   By: pclaus <pclaus@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:16:30 by pclaus            #+#    #+#             */
-/*   Updated: 2024/01/04 15:23:25 by pclaus           ###   ########.fr       */
+/*   Updated: 2024/01/16 16:04:11 by pclaus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,10 @@ char	*get_next_line(int fd)
 		return (NULL);
 	line = put_stash_in_line(stash);
 	stash = remove_line_from_stash(stash);
-//	if (*stash == '\0')
-//		free (stash);
+	if (stash && *stash == '\0')
+	{
+		free (stash);
+		stash = NULL;
+	}
 	return (line);
 }

@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
-#include <stdio.h>
 
 char	*remove_line_from_stash(char *stash)
 {
@@ -95,5 +94,10 @@ char	*get_next_line(int fd)
 		return (NULL);
 	line = put_stash_in_line(stash[fd]);
 	stash[fd] = remove_line_from_stash(stash[fd]);
+	if (stash[fd] && *stash[fd] == '\0')
+	{
+		free (stash[fd]);
+		stash[fd] = NULL;
+	}
 	return (line);
 }

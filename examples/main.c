@@ -16,35 +16,39 @@
 
 int main(void)
 {
-	int	fd;
+	int	fd1;
+	int	fd2;
 	char	*line;
 
-	fd = open("short_line_nl.txt", O_RDONLY);
-	line = 	get_next_line(fd);
+	fd1 = open("1char_no_nl.txt", O_RDONLY);
+	fd2 = open("1char_mnl.txt", O_RDONLY);
+	line = 	get_next_line(fd1);
 	printf("The first line is: %s", line);
 	free (line);
 
-	line = 	get_next_line(fd);
+
+	line = 	get_next_line(fd2);
 	printf("The second line is: %s", line);
 	free (line);
-/*
-	line = 	get_next_line(fd);
+
+	line = 	get_next_line(fd1);
 	printf("The third line is: %s", line);
 	free (line);
 
-	line = 	get_next_line(fd);
+	line = 	get_next_line(fd2);
 	printf("The fourth line is: %s", line);
 	free (line);
 
-	line = 	get_next_line(fd);
+	line = 	get_next_line(fd2);
 	printf("The fifth line is: %s", line);
 	free (line);
-
+/*
 	line = 	get_next_line(fd);
 	printf("The sixth line is: %s", line);
 	free (line);
 */
 
-	close(fd);
+	close(fd1);
+	close(fd2);
 	return (0);
 }
